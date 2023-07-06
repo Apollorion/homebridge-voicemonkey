@@ -1,5 +1,4 @@
 {
-  "private": true,
   "displayName": "Voice Monkey",
   "name": "@apollorion/homebridge-voicemonkey",
   "version": "1.0.0",
