@@ -1,4 +1,4 @@
-import {Service, PlatformAccessory, CharacteristicValue, Logger} from 'homebridge';
+import {Service, PlatformAccessory} from 'homebridge';
 
 import { VoiceMonkeyHomebridgePlatform } from './platform';
 
@@ -11,15 +11,6 @@ import https from 'https';
  */
 export class VoiceMonkeyPlatformAccessory {
   private service: Service;
-
-  /**
-   * These are just used to create a working example
-   * You should implement your own code to track the state of your accessory
-   */
-  private exampleStates = {
-    On: false,
-    Brightness: 100,
-  };
 
   constructor(
     private readonly platform: VoiceMonkeyHomebridgePlatform,
@@ -69,7 +60,7 @@ export class VoiceMonkeyPlatformAccessory {
         this.platform.log.debug(JSON.parse(data).explanation);
       });
 
-    }).on("error", (err) => {
+    }).on('error', (err) => {
       this.platform.log.error(err.message);
     });
   }

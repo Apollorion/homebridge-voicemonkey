@@ -51,7 +51,7 @@ export class VoiceMonkeyHomebridgePlatform implements DynamicPlatformPlugin {
    */
   discoverDevices() {
 
-    this.log.debug("Config", this.config);
+    this.log.debug('Config', this.config);
 
     // loop over the discovered devices and register each one if it has not already been registered
     for (const monkey of this.config.monkeys) {
