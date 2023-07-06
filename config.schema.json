@@ -1,15 +1,23 @@
 {
-  "pluginAlias": "ExampleHomebridgePlugin",
+  "pluginAlias": "VoiceMonkeyHomebridgePlugin",
   "pluginType": "platform",
   "singular": true,
   "schema": {
     "type": "object",
     "properties": {
-      "name": {
-        "title": "Name",
+      "apiToken": {
+        "title": "API Token",
         "type": "string",
+        "required": true
+      },
+      "monkeys": {
+        "title": "Monkeys",
+        "type": "array",
         "required": true,
-        "default": "Example Dynamic Platform"
+        "items": {
+          "title": "Monkey",
+          "type": "string"
+        }
       }
     }
   }
