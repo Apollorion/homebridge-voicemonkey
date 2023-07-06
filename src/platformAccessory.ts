@@ -2,7 +2,7 @@ import {Service, PlatformAccessory} from 'homebridge';
 
 import { VoiceMonkeyHomebridgePlatform } from './platform';
 
-import https from 'https';
+import axios from 'axios';
 
 /**
  * Platform Accessory
@@ -43,26 +43,19 @@ export class VoiceMonkeyPlatformAccessory {
     return 0;
   }
 
-  /**
-   * Handle requests to set the "On" characteristic
-   */
+
   handleOnSet(value) {
     const token = this.platform.config.apiToken;
-    const monkey = this.accessory.displayName;
-    this.platform.log.debug('Triggered SET On:', value);
-    https.get(`https://api-v2.voicemonkey.io/trigger?token=${token}&device=${monkey}`, (resp) => {
-      let data = '';
-      resp.on('data', (chunk) => {
-        data += chunk;
+    const monkey = this.accessory.displayName.toLowerCase();
+    const url = `https://api-v2.voicemonkey.io/trigger?token=${token}&device=${monkey}`;
+    this.platform.log.debug('Triggered SET On:', url, value);
+    axios.get(`https://api-v2.voicemonkey.io/trigger?token=${token}&device=${monkey}`)
+      .then((response) => {
+        this.platform.log.debug('Triggered Response:', response.data);
+      })
+      .catch((error) => {
+        this.platform.log.debug('Triggered Error:', error);
       });
-
-      resp.on('end', () => {
-        this.platform.log.debug(JSON.parse(data).explanation);
-      });
-
-    }).on('error', (err) => {
-      this.platform.log.error(err.message);
-    });
   }
 
 }
